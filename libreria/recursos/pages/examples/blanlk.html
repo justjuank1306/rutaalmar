@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AdminLTE 3 | Blank Page</title>
+
+  <body>
+
+    <script> 
+    const url = 'http://162.248.52.124:8180/GalgoR2AntioquiaBolivar/ApiServlet?key=1c8491a30d62d3d30f1a8c10ea34b30c&did=2826&fecha=valor&id=valor&estado=valor&hora=valor&idpadre=valor';
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+    </script>
+    
+      
+</body>
+</html>
