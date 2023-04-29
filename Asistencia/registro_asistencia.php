@@ -269,7 +269,7 @@ if(isset($_SESSION['u_usuario'])){
   AQUI VAMOS INICIAR FORMULARIO DE ASISTENCIA
  
   
-  
+ aqui va el <form action=""></form>
   
   <!--<a href='login/controller_cerrar_sesion.php'>Cerrar Sesion </a>-->
   AQUI FINALIZA FORMULARIO DE ASISTENCIA
