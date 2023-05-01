@@ -23,8 +23,8 @@ $identificacion = $_POST['Identificacion'];
 $cargo = $_POST['Cargo'];
 $empresa = $_POST['Empresa'];
 $estacion = $_POST['Estacion'];
-$estado = $_POST['Estado'];
-$fecha_creacion = $_POST['Fecha_Creacion'];
+//$estado = $_POST['Estado'];
+//$fecha_creacion = $_POST['Fecha_Creacion'];
 
 $identificacion_tabla ='';
 
@@ -46,8 +46,8 @@ if($identificacion_tabla == $identificacion){
 
 
 $sentencia = $pdo->prepare("INSERT INTO usuario
-(Id_usuario,Nombre,Apellido,Email,Password,Identificacion,Id_Cargo,Id_Empresa,Id_Estacion,Id_Estado,Fecha_Creacion)
-values(:Id_Usuario,:Nombre,:Apellido,:Email,:Password,:Identificacion,:Id_Cargo,:Id_Empresa,:Id_Estacion,:Id_Estado,:Fecha_Creacion)");
+(Id_usuario,Nombre,Apellido,Email,Password,Identificacion,Id_Cargo,Id_Empresa,Id_Estacion)
+values(:Id_Usuario,:Nombre,:Apellido,:Email,:Password,:Identificacion,:Id_Cargo,:Id_Empresa,:Id_Estacion)");
 
 $sentencia->bindParam('Id_Usuario',$Id_Usuario);
 $sentencia->bindParam('Nombre',$nombre);
@@ -58,8 +58,8 @@ $sentencia->bindParam('Identificacion',$identificacion);
 $sentencia->bindParam('Id_Cargo',$cargo);
 $sentencia->bindParam('Id_Empresa',$empresa);
 $sentencia->bindParam('Id_Estacion',$estacion);
-$sentencia->bindParam('Id_Estado',$estado);
-$sentencia->bindParam('Fecha_Creacion',$fecha_creacion);
+//$sentencia->bindParam('Id_Estado',$estado);
+//$sentencia->bindParam('Fecha_Creacion',$fecha_creacion);
 
 
 
