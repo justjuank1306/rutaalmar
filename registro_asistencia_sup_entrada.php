@@ -1,7 +1,7 @@
 <?php
 
 // aqui inicia llamado ala base datos//
-include('../app/config/config.php');
+include('app/config/config.php');
 // aqui finaliza el llamado de la base datos
 
 
@@ -19,6 +19,7 @@ if (isset($_SESSION['u_usuario'])) {
   $query_sesion = $pdo->prepare("SELECT * FROM usuario WHERE Identificacion ='$identificacion_sesion' AND Id_Estado = '1' ");
   $query_sesion->execute();
   $sesion_usuarios = $query_sesion->fetchAll(PDO::FETCH_ASSOC);
+
 
 
   foreach ($sesion_usuarios as $sesion_usuario) {
@@ -41,14 +42,17 @@ if (isset($_SESSION['u_usuario'])) {
 
 
   <!--Aqui Inicia en encabezado -->
-  <?php include('../layout/head.php'); ?>
+  <?php include('layout/menu.php'); ?>
   <!--Aqui finaliza el encabezado-->
 
 
-  <title>Registro de asistencia</title>
+  <title>Usuario Login</title>
 
 
   </head>
+
+
+
 
   <body class="hold-transition sidebar-mini">
 
@@ -66,10 +70,9 @@ if (isset($_SESSION['u_usuario'])) {
           </li>
 
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link"><?php if ($Id_Cargo == "1") echo ("Administrador") ?></a>
+            <a href="#" class="nav-link"><?php echo ($Id_Cargo == "1" ? "Administrador" : "Operador"); ?></a>
           </li>
         </ul>
-
 
         <!-- Right navbar links -->
         <ul class="navbar-nav ml-auto">
@@ -95,88 +98,11 @@ if (isset($_SESSION['u_usuario'])) {
             </div>
           </li>
 
-          <!-- Messages Dropdown Menu -->
-          <li class="nav-item dropdown">
-
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img src="../libreria/recursos/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      Brad Diesel
-                      <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                    </h3>
-                    <p class="text-sm">Call me whenever you can...</p>
-                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img src="../libreria/recursos/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      John Pierce
-                      <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                    </h3>
-                    <p class="text-sm">I got your message bro</p>
-                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <!-- Message Start -->
-                <div class="media">
-                  <img src=".//libreria/recursos/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                  <div class="media-body">
-                    <h3 class="dropdown-item-title">
-                      Nora Silvester
-                      <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                    </h3>
-                    <p class="text-sm">The subject goes here</p>
-                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                  </div>
-                </div>
-                <!-- Message End -->
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-            </div>
-          </li>
-          <!-- Notifications Dropdown Menu -->
-          <li class="nav-item dropdown">
-
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <span class="dropdown-item dropdown-header">15 Notifications</span>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                <span class="float-right text-muted text-sm">3 mins</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-users mr-2"></i> 8 friend requests
-                <span class="float-right text-muted text-sm">12 hours</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">
-                <i class="fas fa-file mr-2"></i> 3 new reports
-                <span class="float-right text-muted text-sm">2 days</span>
-              </a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-            </div>
-          </li>
 
 
           <!-- INICIO MENU SUPERIOR DERECHO -->
+
+
           <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
 
@@ -184,9 +110,9 @@ if (isset($_SESSION['u_usuario'])) {
 
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <!-- User image -->
+              <!-- User image aqui vemos -->
               <li class="user-header bg-primary">
-                <img src="../libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
+                <img src="libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
 
                 <p>
                   <span class="d-none d-md-inline"><?php echo $Nombre . "-" . $Apellido ?></span>
@@ -204,7 +130,16 @@ if (isset($_SESSION['u_usuario'])) {
           </li>
         </ul>
         </li>
+
+
         <!-- FIN MENU SUPERIOR DERECHO -->
+
+
+
+
+
+
+
 
         <li class="nav-item">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -212,28 +147,33 @@ if (isset($_SESSION['u_usuario'])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-            <i class="fas fa-th-large"></i>
-          </a>
+
         </li>
         </ul>
       </nav>
       <!-- /.navbar -->
 
+
+
+
+
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="../../index3.html" class="brand-link">
-          <img src="../libreria/recursos/dist/img/loglogruta.png" alt="logoruta" class="brand-image img-circle elevation-3" style="opacity: .8">
-          <span class="brand-text font-weight-light">AppRuta</span>
+          <img src="libreria/recursos/dist/img/loglogruta.png" alt="logoruta" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">Control Peajes</span>
         </a>
+
+
+
 
         <!-- Sidebar -->
         <div class="sidebar">
           <!-- Sidebar user (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="../libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
+              <img src="libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
               <a href="#" class="d-block"><?php echo $Nombre ?></a>
@@ -241,9 +181,19 @@ if (isset($_SESSION['u_usuario'])) {
             </div>
           </div>
 
+          <!-- Sidebar Menu -->
+
+
           <!--Aqui sehace llamado del menu lateral -->
-          <?php include('../layout/menunavegacion.php'); ?>
+          <?php include('vista_administrador.php'); ?>
           <!--Aqui finaliza el llamado de menu lateral-->
+
+          <!--Aqui sehace llamado del menu lateral -->
+          <?php include('vista_supervisor.php'); ?>
+          <!--Aqui finaliza el llamado de menu lateral-->
+
+
+
 
 
         </div>
@@ -259,53 +209,35 @@ if (isset($_SESSION['u_usuario'])) {
             <div class="container-fluid">
               <div class="row mb-4">
                 <div class="col-sm-12">
-                  <img src="../libreria/recursos/dist/img/loglogruta.png" alt="Logo" style="width: 70px; height: 70px; float: center;">
+                  <img src="libreria/recursos/dist/img/loglogruta.png" alt="Logo" style="width: 70px; height: 70px; float: center;">
 
-                  <h1>REGISTRO DE ASISTENCIA PERSONAL</h1>
+                  <h1> Registro de Asistencia Entrada </h1>
 
 
           </section>
         </center>
-        <!-- Main content -->
 
+        <!-- Main content -->
 
         <section class="content">
           <div class="panel panel-primary">
-            <div class="panel-heading"></div>
+            <div class="panel-primary"></div>
             <div class="panel-body">
 
+              <!--AQUI VAMOS INICIAR FORMULARIO DE ASISTENCIA DE ENTRADA-->
 
-              <!--AQUI VAMOS INICIAR FORMULARIO DE ASISTENCIA-->
-
-              <form action="controllorer_asistencia.php" method="get">
+              <form action="controller_asistencia.php" method="get">
 
                 <div class="row">
+
                   <div class="col-md-5 mx-auto">
-
-                    <div class="form-group">
-                      <label>Identificacion</label>
-                      <input type="tex" class="form-control" name="Identificacion">
-                    </div>
-
-
-                    <div class="form-group">
-                      <label>Nombre</label>
-                      <input type="tex" class="form-control" name="">
-                    </div>
-
-                    <div class="form-group">
-                      <label>Apellidos</label>
-                      <input type="tex" class="form-control">
-                    </div>
-
-                    <!--inicia en este  campo del formulario de asistencia se configura un modal para agregar cargos-->
 
                     <div class="form-group">
                       <label for="">Cargo</label>
                       <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_cargo">
                         <i class="glyphicon glyphicon-plus">+</i>
                       </button>
-                      <select name="" id="" class="form-control">
+                      <select name="cargo" id="" class="form-control">
                         <option value="">Selecciona un cargo</option>
 
 
@@ -331,29 +263,133 @@ if (isset($_SESSION['u_usuario'])) {
 
                       </select>
 
+                      <div class="form-group">
+                        <label for="">Empresa</label>
+                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_empresa">
+                          <i class="glyphicon glyphicon-plus">+</i>
+                        </button>
+                        <select name="empresa" id="" class="form-control">
+                          <option value="">Selecciona una Empresa</option>
+
+
+                          <?php
+
+                          $query_consultaempresa = $pdo->prepare("SELECT * FROM empresa WHERE Id_Estado='1'");
+                          $query_consultaempresa->execute();
+                          $empresanueva = $query_consultaempresa->fetchAll(PDO::FETCH_ASSOC);
+
+
+                          foreach ($empresanueva as $empresanueva) {
+                            $id_empresa = $empresanueva['Id_Empresa'];
+                            $nombre = $empresanueva['Nombre'];
+
+                          ?>
+
+
+                            <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
+                          <?php
+
+                          }
+                          ?>
+
+                        </select>
+
+
+                      </div>
+
 
                     </div>
+                    <div class="form-group">
+                      <label for="">Identificacion</label>
+
+                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_usuarionuevo">
+                        <i class="glyphicon glyphicon-plus">+</i>
+                      </button>
+                      <select name="Identificacion" id="" class="form-control">
+                        <option value="">Identificacion</option>
+
+
+                        <?php
+
+                        $query_consultaid = $pdo->prepare("SELECT * FROM usuario WHERE Id_Estado='1'");
+                        $query_consultaid->execute();
+                        $idusuarionuevo = $query_consultaid->fetchAll(PDO::FETCH_ASSOC);
+
+
+                        foreach ($idusuarionuevo as $idusuarionuevo) {
+                          $id_usuario = $idusuarionuevo['Id_Usuario'];
+                          $nombre = $idusuarionuevo['Nombre'];
+                          $apellido = $idusuarionuevo['Apellido'];
+                          $pasword = $idusuarionuevo['Password'];
+                          $identificacion = $idusuarionuevo['Identificacion'];
+                          $cargo = $idusuarionuevo['Cargo'];
+                          $empresa = $idusuarionuevo['Empresa'];
+                          $estacion = $idusuarionuevo['Estacion'];
+
+                        ?>
+
+
+                          <option value="<?php echo $identificacion; ?>"><?php echo $identificacion; ?></option>
+                        <?php
+
+                        }
+                        ?>
+
+                      </select>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                      <label>Nombre</label>
+                      <input type="tex" class="form-control" name="Nombre">
+
+
+                    </div>
+
+
+
+                    <div class="form-group">
+                      <label>Apellido</label>
+                      <input type="tex" class="form-control" name="Apellido">
+                    </div>
+
+                    <!--inicia en este  campo del formulario de asistencia se configura un modal para agregar cargos-->
+
+
 
                     <!--finaliza en este  campo del formulario de asistencia y se  configura un modal para agregar cargos-->
 
 
 
+
+
+
+
                     <div class="form-group">
                       <label>Observaciones</label>
-                      <input type="tex" class="form-control">
+                      <input type="tex" class="form-control" name="Observaciones">
                     </div>
 
                   </div>
 
                   <!--inicia en este  campo del formulario de asistencia se configura un modal para agregar Estaciones-->
 
-                  <div class="col-md-5 mx-auto">
+
+
+
+                  <div class="col-md-5 mx-auto"><!--    division del formulario             -->
+
+
+
+
                     <div class="form-group">
                       <label for="">Estacion</label>
                       <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_estacion">
                         <i class="glyphicon glyphicon-plus">+</i>
                       </button>
-                      <select name="" id="" class="form-control">
+                      <select name="Estacion" id="" class="form-control">
                         <option value="">Selecciona una Estacion</option>
 
 
@@ -385,17 +421,17 @@ if (isset($_SESSION['u_usuario'])) {
 
                     <div class="form-group">
                       <label>Fecha_hora_entrada</label>
-                      <input type="date" class="form-control">
+                      <input type="date" class="form-control" name="Fecha_hora_entrada">
                     </div>
 
-                    <div class="form-group">
-                      <label>Fecha_hora_salida</label>
-                      <input type="date" class="form-control">
-                    </div>
+                    <!--<div class="form-group">
+      <label>Fecha_hora_salida</label>
+      <input type="date" class="form-control" name="Fecha_hora_salida">
+    </div>-->
 
                     <div class="form-group">
                       <label>Dinero_Reportado</label>
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" name="Dinero_Reportado">
                     </div>
 
 
@@ -455,15 +491,17 @@ if (isset($_SESSION['u_usuario'])) {
 
       </div>
 
-      <!-- /.content-wrapper -->
+      <!-- /.content-wrapper 
 
-      <!--include('../layout/footer.php') hay que meter este codigo en php-->
+<footer class="main-footer">
+<div class="float-right d-none d-sm-block">
+<b>Version</b> 1.0.0
+</div>
+<strong>Copyright &copy; 2023 <a href="#">AppRuta</a>.</strong> todos los derechos reservados.
 
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-      </aside>
-      <!-- /.control-sidebar -->
+</footer>-->
+
+
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
@@ -511,7 +549,7 @@ if (isset($_SESSION['u_usuario'])) {
 
             <div class="col-md-12">
               <label>Nuevos Cargos </label>
-              <input type="tex" class="form-control" name="Nombre" required>
+              <input type="tex" class="form-control" name="Nombre" placeholder="Digite el nuevo cargo" required>
 
             </div>
 
@@ -528,6 +566,8 @@ if (isset($_SESSION['u_usuario'])) {
 </div>
 
 <!-- FINALIZA MODAL PARA AGREGAR MAS CARGOS  ALA TABLA CARGO DESDE LA VISTA SUPERVISOR-->
+
+
 
 
 
@@ -568,3 +608,218 @@ if (isset($_SESSION['u_usuario'])) {
 </div>
 
 <!-- FINALIZA MODAL PARA AGREGAR MAS ESTACIONES  ALA TABLA  ESTACION DESDE LA VISTA SUPERVISOR-->
+
+
+
+
+
+
+
+<!-- INICIA MODAL PARA AGREGAR MAS usuarios  ALA TABLA  usuarios  DESDE LA VISTA SUPERVISOR-->
+
+
+<div class="modal fade" id="myModal_usuarionuevo" tabindex="-1" role="dialog" aria-labelledby="myModal_usuarionuevo">
+  <div class="modal-dialog" role="document">
+    <form action="controller_reg_usuario_nuevo.php" method="get">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="Cancelar" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Usuario Nuevo</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <label>Identificacion</label>
+              <input type="tex" class="form-control" name="Identificacion" required>
+
+
+
+              <label>Nombre </label>
+              <input type="tex" class="form-control" name="Nombre" required>
+
+              <label>Apellido </label>
+              <input type="tex" class="form-control" name="Apellido" required>
+
+              <label>Email </label>
+              <input type="tex" class="form-control" name="Email" required>
+
+
+              <label>Password </label>
+              <input type="Password" class="form-control" name="Password" required>
+
+
+              <label for="">Cargooooo</label>
+              <select name="Cargo" id="" class="form-control">
+                <option value="">Selecciona un cargo</option>
+
+
+                <?php
+
+                $query_consultacargo = $pdo->prepare("SELECT * FROM cargo WHERE Id_Estado='1'");
+                $query_consultacargo->execute();
+                $cargos = $query_consultacargo->fetchAll(PDO::FETCH_ASSOC);
+
+
+                foreach ($cargos as $cargos) {
+                  $id_Cargo = $cargos['Id_Cargo'];
+                  $nombre = $cargos['Nombre'];
+
+                ?>
+
+
+                  <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
+                <?php
+
+                }
+                ?>
+
+              </select>
+
+              <label for="">Empresaaaaaaaa</label>
+              <select name="Empresa" id="" class="form-control">
+                <option value="">Selecciona una Empresa</option>
+
+
+                <?php
+
+                $query_consultaempresa = $pdo->prepare("SELECT * FROM empresa WHERE Id_Estado='1'");
+                $query_consultaempresa->execute();
+                $empresanueva = $query_consultaempresa->fetchAll(PDO::FETCH_ASSOC);
+
+
+                foreach ($empresanueva as $empresanueva) {
+                  $id_empresa = $empresanueva['Id_Empresa'];
+                  $nombre = $empresanueva['Nombre'];
+
+                ?>
+
+
+                  <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
+                <?php
+
+                }
+                ?>
+
+              </select>
+
+
+              <label for="">Estacionnnnnnn</label>
+              <select name="Estacion" id="" class="form-control">
+                        <option value="">Selecciona una Estacion</option>
+
+
+                        <?php
+
+                        $query_consultaestacion = $pdo->prepare("SELECT * FROM estacion WHERE Id_Estado='1'");
+                        $query_consultaestacion->execute();
+                        $estaciones = $query_consultaestacion->fetchAll(PDO::FETCH_ASSOC);
+
+
+                        foreach ($estaciones as $estaciones) {
+                          $id_estacion = $estaciones['Id_Estacion'];
+                          $nombre = $estaciones['Nombre'];
+
+                        ?>
+
+
+                          <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
+                        <?php
+
+                        }
+                        ?>
+
+                      </select>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <input type="submit" class="btn btn-primary" value="Guardar usuario">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FINALIZA MODAL PARA AGREGAR usuario nuevo ALA TABLA  usuario DESDE LA VISTA SUPERVISOR-->
+
+
+<!-- INICIA MODAL PARA AGREGAR MAS empresa  ALA TABLA  empresa  DESDE LA VISTA SUPERVISOR-->
+
+
+<div class="modal fade" id="myModal_empresa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <form action="controller_reg_empresa.php" method="get">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="Cancelar" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Empresa</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <label>Nueva Empresa </label>
+              <input type="tex" class="form-control" name="Nombre" required>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <input type="submit" class="btn btn-primary" value="Guardar Empresa">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- FINALIZA MODAL PARA AGREGAR empresa nuevo ALA TABLA  empresa DESDE LA VISTA SUPERVISOR-->
+
+<!--<a href='login/controller_cerrar_sesion.php'>Cerrar Sesion </a>-->
+
+</div>
+</div>
+
+</section>
+
+
+</div>
+<!-- /.content-wrapper -->
+
+<?php include('layout/footer.php') ?>
+
+
+<!-- Control Sidebar menu superior  derecho aplicaciones-->
+
+<!--<aside class="control-sidebar control-sidebar-dark">-->
+<!-- Control sidebar content goes here -->
+<!--</aside>-->
+
+<!-- /.control-sidebar superior  derecho    aplicaciones-->
+
+
+</div>
+<!-- ./wrapper -->
+<!-- jQuery -->
+<script src="libreria/recursos/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="libreria/recursos/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="libreria/recursos/dist/js/demo.js"></script>
+</body>
+
+</html>
+
+
+<!--FIN PLANTILLA INDEX DE USUARIO-->

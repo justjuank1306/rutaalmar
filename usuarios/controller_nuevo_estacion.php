@@ -1,8 +1,8 @@
 <?php 
 include('../app/config/config.php');
 
-$nombre = $_GET['Nombre'];
-$id_cargo = $_GET['Id_Cargo'];
+$nombre = $_POST['Nombre'];
+$id_estacion = $_POST['Id_Estacion'];
 
 
 
@@ -10,28 +10,19 @@ $id_cargo = $_GET['Id_Cargo'];
 date_default_timezone_set("America/Bogota");
 
 
-$sentencia = $pdo->prepare("INSERT INTO cargo (Nombre, Id_Cargo)
-values(:Nombre, :Id_Cargo)");
+$sentencia = $pdo->prepare("INSERT INTO estacion (Nombre, Id_Estacion)
+values(:Nombre, :Id_Estacion)");
 
 
 $sentencia->bindParam('Nombre',$nombre);
-$sentencia->bindParam('Id_Cargo',$id_cargo);
+$sentencia->bindParam('Id_Estacion',$id_estacion);
 
 
 
 
 if ($sentencia->execute()){
     //echo "<script>alert('insertando');</script>";
-    header('location:'.$url.'/asistencia/registro_asistencia.php');
+    header('location:'.$url.'/usuarios/create.php');
 } else {
     echo "<script>alert('Usuario no Registrado');</script>";
 }
-
-
-  
-
-
-
-
-
-?>
