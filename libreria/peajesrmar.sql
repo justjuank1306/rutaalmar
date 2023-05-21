@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2023 a las 20:46:41
+-- Tiempo de generación: 21-05-2023 a las 21:48:03
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.2.0
 
@@ -55,7 +55,8 @@ INSERT INTO `asistencia` (`Id_Asistencia`, `Id_Usuario`, `Id_Cargo`, `Id_Estacio
 
 CREATE TABLE `boleteria` (
   `Id_Boleteria` bigint(20) NOT NULL,
-  `Fecha_Hora` datetime DEFAULT NULL,
+  `Fecha_Hora` date DEFAULT NULL,
+  `Id_Categoria` int(11) DEFAULT NULL,
   `Boleta_Inicial` decimal(11,0) DEFAULT NULL,
   `Boleta_Final` decimal(11,0) DEFAULT NULL,
   `Entrada` decimal(11,0) DEFAULT NULL,
@@ -64,10 +65,18 @@ CREATE TABLE `boleteria` (
   `Id_Estacion` int(11) NOT NULL,
   `Id_Destino` int(11) NOT NULL,
   `Id_Firma` int(11) NOT NULL,
-  `Id_Estado` int(11) NOT NULL,
   `Observaciones` text DEFAULT NULL,
+  `Id_Estado` int(11) NOT NULL DEFAULT 1,
   `Fecha_Creacion` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `boleteria`
+--
+
+INSERT INTO `boleteria` (`Id_Boleteria`, `Fecha_Hora`, `Id_Categoria`, `Boleta_Inicial`, `Boleta_Final`, `Entrada`, `Salida`, `Saldo`, `Id_Estacion`, `Id_Destino`, `Id_Firma`, `Observaciones`, `Id_Estado`, `Fecha_Creacion`) VALUES
+(1, '2023-05-19', 1, '10001', '20000', '10000', '0', '10000', 1, 1, 1, 'prue', 1, '2023-05-19 23:12:08'),
+(2, '2023-05-20', 2, '10001', '20000', '3000', '0', '3000', 1, 3, 1, 'jjjjjjjjjjj', 1, '2023-05-20 00:10:21');
 
 -- --------------------------------------------------------
 
@@ -118,7 +127,14 @@ CREATE TABLE `cajamenor` (
 
 INSERT INTO `cajamenor` (`Id_CajaMenor`, `Fecha_Hora`, `Entrada`, `Salida`, `Saldo`, `Concepto`, `Id_Estacion`, `Id_Firma`, `Id_Estado`, `Observaciones`, `Fecha_Creacion`) VALUES
 (1, '2023-05-18', '1000000', '0', '1000000', 'Saldo inicial ', 1, 1, 1, 'prueba', '2023-05-18 11:07:30'),
-(2, '2023-05-18', '40000', '0', '1400000', 'prueba444', 1, 1, 1, 'tttttttttttt', '2023-05-18 11:17:37');
+(2, '2023-05-18', '0', '40000', '960000', 'compras varias', 1, 1, 1, 'Mantenimiento de puertas', '2023-05-18 11:17:37'),
+(3, '2023-05-19', '0', '80000', '880000', 'Compra de agua', 1, 1, 1, 'Agua potable', '2023-05-19 00:46:42'),
+(4, '2023-05-19', '0', '320000', '560000', 'Compra varias', 1, 1, 1, 'Mantenimiento de cortinas', '2023-05-19 00:49:23'),
+(5, '2023-05-19', '0', '70000', '490000', 'Transporte Monteria', 1, 1, 1, 'transportes capacitación brigadista', '2023-05-19 01:15:31'),
+(6, '2023-05-19', '0', '10000', '480000', 'compras varias', 1, 1, 1, 'Mantenimiento de barreras', '2023-05-19 01:18:47'),
+(7, '2023-05-19', '0', '70000', '410000', 'Transporte Monteria', 1, 1, 1, 'Transporte capacitación brigadista', '2023-05-19 08:22:56'),
+(8, '2023-05-19', '520000', '0', '930000', 'Rembolso caja menor', 1, 1, 1, 'Rembolso caja menor', '2023-05-19 08:23:52'),
+(9, '2023-05-19', '0', '10000', '920000', 'ssss', 1, 1, 1, 'prue', '2023-05-19 09:00:43');
 
 -- --------------------------------------------------------
 
@@ -162,6 +178,39 @@ INSERT INTO `cargo` (`Id_Cargo`, `Nombre`, `Observaciones`, `Id_Estado`) VALUES
 (23, 'gerente ani', NULL, 1),
 (24, 'estufero', NULL, 1),
 (27, 'Secretaria general de la nacion', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `Id_Categoria` int(11) NOT NULL,
+  `Codigo` varchar(10) NOT NULL,
+  `Nombre` varchar(25) NOT NULL,
+  `Descripcion` varchar(250) DEFAULT NULL,
+  `Ejes` varchar(10) NOT NULL,
+  `Dobles` varchar(10) NOT NULL,
+  `Id_Estado` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`Id_Categoria`, `Codigo`, `Nombre`, `Descripcion`, `Ejes`, `Dobles`, `Id_Estado`) VALUES
+(1, 'I', 'Categoria I', 'Automoviles,camionetas y vehiculos peq.', '2', '0', 1),
+(2, 'II', 'Categoria II', 'Buses de 2 ejes', '2', '1', 1),
+(3, 'III', 'Categoria III', 'Camiones liviano 2 ejes', '2', '1', 1),
+(4, 'IV', 'Categoria IV', 'Camiones pesados de 2 ejes', '2', '1', 1),
+(5, 'V', 'Categoria V', 'Camion 3 ejes', '3', '2', 1),
+(6, 'V-B', 'Categoria V-B', 'Camion 4 ejes', '4', '3', 1),
+(7, 'VI', 'Categoria VI', 'Camion 5 ejes', '5', '5', 1),
+(8, 'VII', 'Categoria VII', 'Camion 6 ejes o mas', '6', '6', 1),
+(9, 'VIII', 'categoria VIII', 'camiones de mas de 7 ejes', '7', '6', 1),
+(10, 'VIII', 'categoria VIII', 'camiones de mas de 7 ejes', '7', '6', 1),
+(11, 'VIIIi', 'categoria VIIId', 'camiones de mas de 7 ejesdd', '8', '6', 1);
 
 -- --------------------------------------------------------
 
@@ -212,22 +261,24 @@ CREATE TABLE `consignacion` (
 
 CREATE TABLE `destino` (
   `Id_Destino` int(11) NOT NULL,
-  `Nombre` varchar(100) NOT NULL
+  `Nombre` varchar(100) NOT NULL,
+  `Id_Estado` int(11) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `destino`
 --
 
-INSERT INTO `destino` (`Id_Destino`, `Nombre`) VALUES
-(1, 'Carril01'),
-(2, 'Carril02'),
-(3, 'Carril03'),
-(4, 'Carril04'),
-(5, 'Carril05'),
-(6, 'Carril06'),
-(7, 'Carril07'),
-(8, 'Carril08');
+INSERT INTO `destino` (`Id_Destino`, `Nombre`, `Id_Estado`) VALUES
+(1, 'Carril01', 1),
+(2, 'Carril02', 1),
+(3, 'Carril03', 1),
+(4, 'Carril04', 1),
+(5, 'Carril05', 1),
+(6, 'Carril06', 1),
+(7, 'Carril07', 1),
+(8, 'Carril08', 1),
+(9, 'carril 9', 1);
 
 -- --------------------------------------------------------
 
@@ -351,17 +402,25 @@ INSERT INTO `firma` (`Id_Firma`, `Id_Usuario`, `Imagen`, `Id_Estado`) VALUES
 
 CREATE TABLE `fondorecambio` (
   `Id_FondoRecambio` bigint(20) NOT NULL,
-  `Fecha_Hora` datetime DEFAULT NULL,
+  `Fecha_Hora` date DEFAULT NULL,
   `Entrada` decimal(11,0) DEFAULT NULL,
   `Salida` decimal(11,0) DEFAULT NULL,
   `Saldo` decimal(11,0) DEFAULT NULL,
   `Concepto` varchar(50) DEFAULT NULL,
   `Id_Estacion` int(11) NOT NULL,
   `Id_Firma` int(11) NOT NULL,
-  `Id_Estado` int(11) NOT NULL,
+  `Id_Estado` int(11) NOT NULL DEFAULT 1,
   `Observaciones` text DEFAULT NULL,
   `Fecha_Creacion` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `fondorecambio`
+--
+
+INSERT INTO `fondorecambio` (`Id_FondoRecambio`, `Fecha_Hora`, `Entrada`, `Salida`, `Saldo`, `Concepto`, `Id_Estacion`, `Id_Firma`, `Id_Estado`, `Observaciones`, `Fecha_Creacion`) VALUES
+(3, '2023-05-19', '20000000', '0', '20000000', 'saldo inicial ', 1, 1, 1, 'saldo inicial', '2023-05-19 10:57:47'),
+(4, '2023-05-19', '0', '200000', '19800000', 'base caseta1', 1, 1, 1, 'sandra restrepo', '2023-05-19 11:03:43');
 
 -- --------------------------------------------------------
 
@@ -488,20 +547,21 @@ CREATE TABLE `usuario` (
   `Id_Estacion` int(11) NOT NULL,
   `Id_Estado` int(11) NOT NULL DEFAULT 1,
   `Fecha_Creacion` datetime NOT NULL DEFAULT current_timestamp(),
-  `Huella` longblob DEFAULT NULL
+  `Huella` longblob DEFAULT NULL,
+  `Id_Firma` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Id_Usuario`, `Nombre`, `Apellido`, `Email`, `Password`, `Identificacion`, `Id_Cargo`, `Id_Empresa`, `Id_Estacion`, `Id_Estado`, `Fecha_Creacion`, `Huella`) VALUES
-(1, 'Juan Carlos ', 'Tejada Monterroza', 'juan.tejada@rutaalmar.com', '12345', '10767388', 1, 1, 1, 1, '2023-04-22 00:00:00', ''),
-(31, 'tesoro', 'escondido', 'tesor@rutaalmar.com', '12344123', '123456789', 3, 1, 2, 1, '2023-04-25 00:00:00', ''),
-(32, 'Juan Manuel', 'Tejada Martinez', 'juanmanuel@rutaalamr.com', '123', '12345678910111213', 9, 1, 3, 1, '2023-04-25 00:00:00', ''),
-(34, 'clara eugenia', 'sotomayor rico', 'clara.sotomayor@rutaalmar.com', '123456', '50910000', 7, 1, 1, 1, '2023-04-26 00:00:00', ''),
-(38, 'SAMUEL', 'ALARCON', 'JUAN.JUAN@RUTAALAMR.COM', '12345', '1076738899', 1, 1, 1, 1, '2023-04-28 00:00:00', ''),
-(39, 'Andrea Paola', 'Martinez Martinez', 'marnezan@marnezan.com', '123456789', '1067868267', 12, 1, 1, 1, '2023-04-29 00:00:00', '');
+INSERT INTO `usuario` (`Id_Usuario`, `Nombre`, `Apellido`, `Email`, `Password`, `Identificacion`, `Id_Cargo`, `Id_Empresa`, `Id_Estacion`, `Id_Estado`, `Fecha_Creacion`, `Huella`, `Id_Firma`) VALUES
+(1, 'Juan Carlos ', 'Tejada Monterroza', 'juan.tejada@rutaalmar.com', '12345', '10767388', 1, 1, 1, 1, '2023-04-22 00:00:00', '', 0),
+(31, 'tesoro', 'escondido', 'tesor@rutaalmar.com', '12344123', '123456789', 3, 1, 2, 1, '2023-04-25 00:00:00', '', 0),
+(32, 'Juan Manuel', 'Tejada Martinez', 'juanmanuel@rutaalamr.com', '123', '12345678910111213', 9, 1, 3, 1, '2023-04-25 00:00:00', '', 0),
+(34, 'clara eugenia', 'sotomayor rico', 'clara.sotomayor@rutaalmar.com', '123456', '50910000', 7, 1, 1, 1, '2023-04-26 00:00:00', '', 0),
+(38, 'SAMUEL', 'ALARCON', 'JUAN.JUAN@RUTAALAMR.COM', '12345', '1076738899', 1, 1, 1, 1, '2023-04-28 00:00:00', '', 0),
+(39, 'Andrea Paola', 'Martinez Martinez', 'marnezan@marnezan.com', '123456789', '1067868267', 12, 1, 1, 1, '2023-04-29 00:00:00', '', 1);
 
 --
 -- Índices para tablas volcadas
@@ -526,7 +586,8 @@ ALTER TABLE `boleteria`
   ADD KEY `Fk_Id_Estacion` (`Id_Estacion`),
   ADD KEY `Fk_Id_Destino` (`Id_Destino`),
   ADD KEY `Fk_Id_Firma` (`Id_Firma`),
-  ADD KEY `Fk_Id_Estado` (`Id_Estado`);
+  ADD KEY `Fk_Id_Estado` (`Id_Estado`),
+  ADD KEY `Fk_Id_Categoria` (`Id_Categoria`);
 
 --
 -- Indices de la tabla `cajafuerte`
@@ -556,6 +617,13 @@ ALTER TABLE `cargo`
   ADD KEY `Fk_Id_Estado` (`Id_Estado`);
 
 --
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`Id_Categoria`),
+  ADD KEY `Fk_Id_Estado` (`Id_Estado`);
+
+--
 -- Indices de la tabla `combustible`
 --
 ALTER TABLE `combustible`
@@ -578,7 +646,8 @@ ALTER TABLE `consignacion`
 -- Indices de la tabla `destino`
 --
 ALTER TABLE `destino`
-  ADD PRIMARY KEY (`Id_Destino`);
+  ADD PRIMARY KEY (`Id_Destino`),
+  ADD KEY `Fk_Id_Estado` (`Id_Estado`);
 
 --
 -- Indices de la tabla `empresa`
@@ -686,7 +755,7 @@ ALTER TABLE `asistencia`
 -- AUTO_INCREMENT de la tabla `boleteria`
 --
 ALTER TABLE `boleteria`
-  MODIFY `Id_Boleteria` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Boleteria` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `cajafuerte`
@@ -698,13 +767,19 @@ ALTER TABLE `cajafuerte`
 -- AUTO_INCREMENT de la tabla `cajamenor`
 --
 ALTER TABLE `cajamenor`
-  MODIFY `Id_CajaMenor` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_CajaMenor` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `cargo`
 --
 ALTER TABLE `cargo`
   MODIFY `Id_Cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `Id_Categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `combustible`
@@ -722,7 +797,7 @@ ALTER TABLE `consignacion`
 -- AUTO_INCREMENT de la tabla `destino`
 --
 ALTER TABLE `destino`
-  MODIFY `Id_Destino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_Destino` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `empresa`
@@ -758,7 +833,7 @@ ALTER TABLE `firma`
 -- AUTO_INCREMENT de la tabla `fondorecambio`
 --
 ALTER TABLE `fondorecambio`
-  MODIFY `Id_FondoRecambio` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_FondoRecambio` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `frecuencia`
