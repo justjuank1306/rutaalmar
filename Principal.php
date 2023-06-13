@@ -60,7 +60,7 @@ if (isset($_SESSION['u_usuario'])) {
 
 
     <!--Aqui Inicia en encabezado -->
-    <?php include('layout/menu.php'); ?>
+    <?php include('layout/head.php'); ?>
     <!--Aqui finaliza el encabezado-->
 
 

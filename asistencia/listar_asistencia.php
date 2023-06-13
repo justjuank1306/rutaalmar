@@ -1,7 +1,8 @@
-<?php
-
+<?php 
 // aqui inicia llamado ala base datos//
 include('../app/config/config.php');
+date_default_timezone_set("America/Bogota");
+
 // aqui finaliza el llamado de la base datos
 
 
@@ -29,10 +30,13 @@ if (isset($_SESSION['u_usuario'])) {
   TbEstacion.Nombre Estacion,
   TbEstado.Nombre Estado,
   TbUsuario.Fecha_Creacion,
-  TbUsuario.Id_Cargo
+  TbUsuario.Id_Cargo,
+  TbFirma.Id_Firma,
+  TbUsuario.Id_Estacion
   FROM usuario TbUsuario 
   JOIN cargo TbCargo ON TbUsuario.Id_cargo = TbCargo.Id_cargo 
   JOIN empresa TbEmpresa ON TbUsuario.Id_Empresa = TbEmpresa.Id_Empresa
+  JOIN firma TbFirma ON TbFirma.Id_Firma = TbUsuario.Id_Firma 
   JOIN estacion TbEstacion on TbUsuario.Id_Estacion = TbEstacion.Id_Estacion
   JOIN estado TbEstado on TbUsuario.Id_Estado = TbEstado.Id_Estado
   WHERE TbUsuario.Identificacion ='$identificacion_sesion' AND TbUsuario.Id_Estado = '1' ");
@@ -53,24 +57,28 @@ if (isset($_SESSION['u_usuario'])) {
     $Estado    = $sesion_usuario['Estado'];
     $Fecha_Creacion    = $sesion_usuario['Fecha_Creacion'];
     $Id_Cargo    = $sesion_usuario['Id_Cargo'];
+    $Id_Firma    = $sesion_usuario['Id_Firma'];
+    $Id_Estacion    = $sesion_usuario['Id_Estacion'];
   }
+
 
 ?>
 
   <!-- finaliza codigo capturamos elinciiao de sesion de un usuario-->
 
-
   <!--Aqui Inicia en encabezado -->
-  <?php include('../layout/head.php'); ?>
+  <?php include('../layout/menu.php'); ?>
   <!--Aqui finaliza el encabezado-->
 
 
-  <title>Lista de usuarios </title>
+  <title>Listado de boleteria</title>
 
 
   </head>
 
+
   <body class="hold-transition sidebar-mini">
+
     <!-- Site wrapper -->
     <div class="wrapper">
       <!-- Navbar -->
@@ -83,8 +91,9 @@ if (isset($_SESSION['u_usuario'])) {
           <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Inicio</a>
           </li>
+
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link"><?php if ($Id_Cargo == "1") echo ("Administrador") ?></a>
+            <a href="#" class="nav-link"><?php echo ($Id_Cargo == "1" ? "Administrador" : "Operador"); ?></a>
           </li>
         </ul>
 
@@ -112,8 +121,11 @@ if (isset($_SESSION['u_usuario'])) {
             </div>
           </li>
 
-          <!-- Messages Dropdown Menu -->
+
+
           <!-- INICIO MENU SUPERIOR DERECHO -->
+
+
           <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
 
@@ -121,7 +133,7 @@ if (isset($_SESSION['u_usuario'])) {
 
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-              <!-- User image esto es index usuarios -->
+              <!-- User image aqui vemos -->
               <li class="user-header bg-primary">
                 <img src="../libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
 
@@ -141,6 +153,8 @@ if (isset($_SESSION['u_usuario'])) {
           </li>
         </ul>
         </li>
+
+
         <!-- FIN MENU SUPERIOR DERECHO -->
 
         <li class="nav-item">
@@ -155,13 +169,20 @@ if (isset($_SESSION['u_usuario'])) {
       </nav>
       <!-- /.navbar -->
 
+
+
+
+
       <!-- Main Sidebar Container -->
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="../../index3.html" class="brand-link">
           <img src="../libreria/recursos/dist/img/loglogruta.png" alt="logoruta" class="brand-image img-circle elevation-3" style="opacity: .8">
-          <span class="brand-text font-weight-light">Ruta al Mar</span>
+          <span class="brand-text font-weight-light">Control Peajes</span>
         </a>
+
+
+
 
         <!-- Sidebar -->
         <div class="sidebar">
@@ -176,147 +197,118 @@ if (isset($_SESSION['u_usuario'])) {
             </div>
           </div>
 
-
-
           <!-- Sidebar Menu -->
-          <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-              <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-users"></i>
-                  <p>
-                    Usuarios
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="../usuarios/index.php" class="nav-link">
-                      <i class="far fa-user"></i>
-                      <p>Lista de Usuarios</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../usuarios/create.php" class="nav-link">
-                      <i class="far fa-user"></i>
-                      <p>Crear Usuario</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="../principal.php" class="nav-link">
-                      <i class="far fa-user"></i>
-                      <p>Usuario Logeado</p>
-                    </a>
-                  </li>
 
-                </ul>
-              </li>
 
-              <li class="nav-header">LIBROS DE ASISTENCIA</li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon far fa-circle text-danger"></i>
-                  <p class="text">Important</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon far fa-circle text-warning"></i>
-                  <p>Warning</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon far fa-circle text-info"></i>
-                  <p>Informational</p>
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <!-- /.sidebar-menu -->
+          <!--Aqui sehace llamado del menu lateral -->
+          <?php include('../vista_administrador.php'); ?>
+          <!--Aqui finaliza el llamado de menu lateral-->
+
+          <!--Aqui sehace llamado del menu lateral -->
+          <?php include('../vista_supervisor.php'); ?>
+          <!--Aqui finaliza el llamado de menu lateral-->
+
+
+
+
+
         </div>
         <!-- /.sidebar -->
       </aside>
-
+<style type="text/css">
+        main {
+            width: 100%;
+            display: flex;
+        }
+        main .content {
+            width: 60%;
+        }
+    </style>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <div class="container-fluid">
-            <div class="row mb-2">
-              <div class="col-sm-6">
-                <h1>Lista de Usuarios</h1>
+       <section class="content-header">
 
-        </section>
+            <div class="container-fluid">
+              <div class="row mb-4">
+                <div class="col-sm-12">
+                
+                  <h1>Libro de Asistencia</h1>
         <!-- Main content -->
         <section class="content">
           <div class="panel panel-primary">
-            <div class="panel-heading">listado de Usuarios</div>
+            <div class="panel-primary">listado de Asistencia personal</div>
             <div class="panel-body">
               <table class="table table-bordered table-hover table-condensed">
-                <th>Nro</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Identificacion</th>
-                <th>Cargo</th>
-                <th>Empresa</th>
-                <th>Estacion</th>
-                <th>Estado</th>
-                <th>Fecha_Creacion</th>
-                <?php
-                $contador_usuario = 0;
-                $query_usuarios = $pdo->prepare("SELECT
-                TbUsuario.Id_Usuario,
-                TbUsuario.Nombre,
-                TbUsuario.Apellido,
-                TbUsuario.Email,
-                TbUsuario.Password,
-                TbUsuario.Identificacion,
-                TbCargo.Nombre Cargo,
-                TbEmpresa.Nombre Empresa,
-                TbEstacion.Nombre Estacion,
-                TbEstado.Nombre Estado,
-                TbUsuario.Fecha_Creacion
-                FROM usuario TbUsuario 
-                JOIN cargo TbCargo ON TbUsuario.Id_cargo = TbCargo.Id_cargo 
-                JOIN empresa TbEmpresa ON TbUsuario.Id_Empresa = TbEmpresa.Id_Empresa
-                JOIN estacion TbEstacion on TbUsuario.Id_Estacion = TbEstacion.Id_Estacion
-                JOIN estado TbEstado on TbUsuario.Id_Estado = TbEstado.Id_Estado");
-                $query_usuarios->execute();
-                $usuarios = $query_usuarios->fetchAll(PDO::FETCH_ASSOC);
-
-                foreach ($usuarios as $usuario) {
-                  $Id_Usuario = $usuario['Id_Usuario'];
-                  $Nombre = $usuario['Nombre'];
-                  $Apellido = $usuario['Apellido'];
-                  $Email = $usuario['Email'];
-                  $Password = $usuario['Password'];
-                  $Identificacion = $usuario['Identificacion'];
-                  $Cargo = $usuario['Cargo'];
-                  $Empresa = $usuario['Empresa'];
-                  $Estacion = $usuario['Estacion'];
-                  $Estado = $usuario['Estado'];
-                  $Fecha_Creacion = $usuario['Fecha_Creacion'];
-                  $contador_usuario = $contador_usuario + 1;
+              <th>Nro</th>
+              <th>Identificacion</th>
+              <th>Nombre</th>
+			        <th>Cargo</th>
+			        <th>Entrada</th>
+              <th>Fecha Entrada</th>
+              <th>Dinero Reportado</th>
+              <th>Reg_Entrada_Por</th>
+              <th>Salida</th>
+              <th>Fecha Salida</th>
+              <th>Dinero Entregado</th>
+              <th>Reg_Salida_Por</th>
+              <th>Estado</th>
+              <?php
+              $query_asistencias = $pdo->prepare("SELECT TbAsistencia.Id_Asistencia,
+              TbAsistencia.Identificacion,
+              CONCAT(TbEmpleado.Nombre , ' - ',TbEmpleado.Apellido)As Nombre,
+              TbCargo.Nombre Cargo,
+              TbAsistencia.Entrada,
+              TbAsistencia.Fecha_Hora_Entrada,
+              TbAsistencia.Dinero_Reportado,
+              CONCAT(TbUsuario.Nombre , ' - ',TbUsuario.Apellido)As Reg_Entrada_Por,
+              TbAsistencia.Salida,
+              TbAsistencia.Fecha_Hora_Salida,
+              TbAsistencia.Dinero_Entregado,
+              TbEstado.Nombre Estado,
+              CONCAT(TbUsuario1.Nombre , ' - ',TbUsuario1.Apellido)As Reg_Salida_Por
+              FROM asistenciav2 TbAsistencia
+              JOIN usuario TbUsuario ON TbAsistencia.Id_Usuario_Reg = TbUsuario.Id_Usuario 
+              JOIN usuario TbUsuario1 ON TbAsistencia.Id_Usuario_Sal = TbUsuario1.Id_Usuario 
+              JOIN empleado TbEmpleado ON TbAsistencia.Identificacion = TbEmpleado.Identificacion 
+              JOIN cargo TbCargo ON TbUsuario.Id_cargo = TbCargo.Id_cargo 
+              JOIN empresa TbEmpresa ON TbUsuario.Id_Empresa = TbEmpresa.Id_Empresa
+              JOIN estacion TbEstacion on TbUsuario.Id_Estacion = TbEstacion.Id_Estacion
+              JOIN estado TbEstado on TbAsistencia.Id_Estado = TbEstado.Id_Estado
+              WHERE TbAsistencia.Id_Estado <> 0");
+              $query_asistencias->execute();
+              $asistencias = $query_asistencias->fetchAll(PDO::FETCH_ASSOC);
+              foreach ($asistencias as $asistencia) {
+                $Id_Asistencia = $asistencia['Id_Asistencia'];
+				        $Identificacion = $asistencia['Identificacion'];
+			        	$Nombre = $asistencia['Nombre'];
+			        	$Cargo = $asistencia['Cargo'];
+			        	$Entrada = $asistencia['Entrada'];
+                $Fecha_Hora_Entrada = $asistencia['Fecha_Hora_Entrada'];
+                $Dinero_Reportado = $asistencia['Dinero_Reportado'];
+                $Reg_Entrada_Por = $asistencia['Reg_Entrada_Por'];
+                $Salida = $asistencia['Salida'];
+                $Fecha_Hora_Salida = $asistencia['Fecha_Hora_Salida'];
+                $Dinero_Entregado = $asistencia['Dinero_Entregado'];
+		        		$Reg_Salida_Por = $asistencia['Reg_Salida_Por'];
+                $Estado = $asistencia['Estado'];
                 ?>
                   <tr>
-                    <td>
-                      <center><?php echo $contador_usuario ?></center>
-                    </td>
-                    <td><?php echo $Nombre ?></td>
-                    <td><?php echo $Apellido ?></td>
-                    <td><?php echo $Email ?></td>
-                    <td><?php echo $Password ?></td>
-                    <td><?php echo $Identificacion ?></td>
-                    <td><?php echo $Cargo ?></td>
-                    <td><?php echo $Empresa ?></td>
-                    <td><?php echo $Estacion ?></td>
-                    <td><?php echo $Estado ?></td>
-                    <td><?php echo $Fecha_Creacion ?></td>
+                  <td>
+                    <center><?php echo $Id_Asistencia ?></center>
+                  </td>
+                  <td><?php echo $Identificacion ?></td>
+                  <td><?php echo $Nombre ?></td>
+                  <td><?php echo $Cargo ?></td>
+                  <td><?php echo $Entrada ?></td>
+                  <td><?php echo $Fecha_Hora_Entrada ?></td>
+                  <td><?php echo $Dinero_Reportado ?></td>
+                  <td><?php echo $Reg_Entrada_Por ?></td>
+                  <td><?php echo $Salida ?? ''; ?></td>
+                  <td><?php echo $Fecha_Hora_Salida ?></td>
+                  <td><?php echo $Dinero_Entregado ?? ''; ?></td>
+                  <td><?php echo $Reg_Salida_Por  ?? ''; ?></td>
+                  <td><?php echo $Estado ?></td>
                   </tr>
 
                 <?php
@@ -331,28 +323,10 @@ if (isset($_SESSION['u_usuario'])) {
 
         </section>
 
+
       </div>
-      <!-- /.content-wrapper -->
 
-      <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-          <b>Version</b> 1.0.0
-        </div>
-        <strong>Copyright &copy; 2023 <a href="#">AppRuta</a>.</strong> todos los derechos reservados.
-        <style>
-          .main-footer {
-            background-color: #91c0f2;
-            border-top: 1px solid #dee2e6;
-            color: #869099;
-            padding: 1rem;
-          }
-        </style>
-      </footer>
-      <!-- Control Sidebar -->
 
-      <!-- Control sidebar content goes here -->
-      </aside>
-      <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
@@ -361,11 +335,15 @@ if (isset($_SESSION['u_usuario'])) {
     <script src="../libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../libreria/recursos/dist/js/adminlte.min.js"></script>
-    <!-- Ad -->
+    <!-- AdminLTE for demo purposes -->
     <script src="../libreria/recursos/dist/js/demo.js"></script>
   </body>
 
   </html>
+
+
+  <!--FIN PLANTILLA INDEX DE USUARIO-->
+
 
 <?php
 
@@ -379,3 +357,44 @@ if (isset($_SESSION['u_usuario'])) {
 }
 
 ?>
+
+
+<!--<a href='login/controller_cerrar_sesion.php'>Cerrar Sesion </a>-->
+
+</div>
+</div>
+
+</section>
+
+
+</div>
+<!-- /.content-wrapper -->
+
+<?php include('../layout/footer.php') ?>
+
+
+<!-- Control Sidebar menu superior  derecho aplicaciones-->
+
+<!--<aside class="control-sidebar control-sidebar-dark">-->
+<!-- Control sidebar content goes here -->
+<!--</aside>-->
+
+<!-- /.control-sidebar superior  derecho    aplicaciones-->
+
+
+</div>
+<!-- ./wrapper -->
+<!-- jQuery -->
+<script src="../libreria/recursos/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../libreria/recursos/dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../libreria/recursos/dist/js/demo.js"></script>
+</body>
+
+</html>
+
+
+<!--FIN PLANTILLA INDEX DE USUARIO-->

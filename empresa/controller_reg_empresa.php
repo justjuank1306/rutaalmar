@@ -1,8 +1,8 @@
 <?php 
-include('app/config/config.php');
+include('../app/config/config.php');
 
 $nombre = $_GET['Nombre'];
-$id_cargo = $_GET['Id_Cargo'];
+$id_empresa = $_GET['Id_Empresa'];
 
 
 
@@ -10,27 +10,25 @@ $id_cargo = $_GET['Id_Cargo'];
 date_default_timezone_set("America/Bogota");
 
 
-$sentencia = $pdo->prepare("INSERT INTO cargo (Nombre, Id_Cargo)
-values(:Nombre, :Id_Cargo)");
+$sentencia = $pdo->prepare("INSERT INTO empresa (Nombre, Id_Empresa)
+values(:Nombre, :Id_Empresa)");
 
 
 $sentencia->bindParam('Nombre',$nombre);
-$sentencia->bindParam('Id_Cargo',$id_cargo);
+$sentencia->bindParam('Id_Empresa',$id_empresa);
 
 
 
 
 if ($sentencia->execute()){
     //echo "<script>alert('insertando');</script>";
-    header('location:'.$url.'/Registro_Asistencia_Sup_Entrada.php');
+    header('location:'.$url.'/empleado/registro_empleado.php');
 } else {
     echo "<script>alert('Usuario no Registrado');</script>";
 }
 
 
   
-
-
 
 
 

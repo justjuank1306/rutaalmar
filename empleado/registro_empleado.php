@@ -1,7 +1,7 @@
 <?php
 
 // aqui inicia llamado ala base datos//
-include('app/config/config.php');
+include('../app/config/config.php');
 // aqui finaliza el llamado de la base datos
 
 
@@ -42,7 +42,7 @@ if (isset($_SESSION['u_usuario'])) {
 
 
   <!--Aqui Inicia en encabezado -->
-  <?php include('layout/menu.php'); ?>
+  <?php include('../layout/menu.php'); ?>
   <!--Aqui finaliza el encabezado-->
 
 
@@ -112,7 +112,7 @@ if (isset($_SESSION['u_usuario'])) {
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <!-- User image aqui vemos -->
               <li class="user-header bg-primary">
-                <img src="libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
+                <img src="../libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
 
                 <p>
                   <span class="d-none d-md-inline"><?php echo $Nombre . "-" . $Apellido ?></span>
@@ -126,7 +126,7 @@ if (isset($_SESSION['u_usuario'])) {
           <!-- Menu Footer-->
           <li class="user-footer">
             <!--<a href="#" class="btn btn-default btn-flat">Perfil</a>-->
-            <a href="login/controller_cerrar_sesion.php" class="btn btn-default btn-flat">Cerrar Sesion </a>
+            <a href="../login/controller_cerrar_sesion.php" class="btn btn-default btn-flat">Cerrar Sesion </a>
           </li>
         </ul>
         </li>
@@ -161,7 +161,7 @@ if (isset($_SESSION['u_usuario'])) {
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="../../index3.html" class="brand-link">
-          <img src="libreria/recursos/dist/img/loglogruta.png" alt="logoruta" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <img src="../libreria/recursos/dist/img/loglogruta.png" alt="logoruta" class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Control Peajes</span>
         </a>
 
@@ -173,7 +173,7 @@ if (isset($_SESSION['u_usuario'])) {
           <!-- Sidebar user (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
+              <img src="../libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
               <a href="#" class="d-block"><?php echo $Nombre ?></a>
@@ -185,11 +185,11 @@ if (isset($_SESSION['u_usuario'])) {
 
 
           <!--Aqui sehace llamado del menu lateral -->
-          <?php include('vista_administrador.php'); ?>
+          <?php include('../vista_administrador.php'); ?>
           <!--Aqui finaliza el llamado de menu lateral-->
 
           <!--Aqui sehace llamado del menu lateral -->
-          <?php include('vista_supervisor.php'); ?>
+          <?php include('../vista_supervisor.php'); ?>
           <!--Aqui finaliza el llamado de menu lateral-->
 
 
@@ -209,9 +209,9 @@ if (isset($_SESSION['u_usuario'])) {
             <div class="container-fluid">
               <div class="row mb-4">
                 <div class="col-sm-12">
-                  <img src="libreria/recursos/dist/img/loglogruta.png" alt="Logo" style="width: 70px; height: 70px; float: center;">
+                  <img src="../libreria/recursos/dist/img/loglogruta.png" alt="Logo" style="width: 70px; height: 70px; float: center;">
 
-                  <h1> Registro de Asistencia Entrada </h1>
+                  <h1> Registro de Empleados </h1>
 
 
           </section>
@@ -224,152 +224,33 @@ if (isset($_SESSION['u_usuario'])) {
             <div class="panel-primary"></div>
             <div class="panel-body">
 
-              <!--AQUI VAMOS INICIAR FORMULARIO DE ASISTENCIA DE ENTRADA-->
+              <!--AQUI VAMOS INICIAR FORMULARIO DE REGISTRO DE EMPLEADOS-->
 
-              <form action="controller_asistencia.php" method="get">
+              <form action="controller_reg_empleado.php" method="get">
 
                 <div class="row">
 
                   <div class="col-md-5 mx-auto">
 
-                    <div class="form-group">
-                      <label for="">Cargo</label>
-                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_cargo">
-                        <i class="glyphicon glyphicon-plus">+</i>
-                      </button>
-                      <select name="cargo" id="" class="form-control">
-                        <option value="">Selecciona un cargo</option>
-
-
-                        <?php
-
-                        $query_consultacargo = $pdo->prepare("SELECT * FROM cargo WHERE Id_Estado='1'");
-                        $query_consultacargo->execute();
-                        $cargos = $query_consultacargo->fetchAll(PDO::FETCH_ASSOC);
-
-
-                        foreach ($cargos as $cargos) {
-                          $id_Cargo = $cargos['Id_Cargo'];
-                          $nombre = $cargos['Nombre'];
-
-                        ?>
-
-
-                          <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
-                        <?php
-
-                        }
-                        ?>
-
-                      </select>
-
-                      <div class="form-group">
-                        <label for="">Empresa</label>
-                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_empresa">
-                          <i class="glyphicon glyphicon-plus">+</i>
-                        </button>
-                        <select name="empresa" id="" class="form-control">
-                          <option value="">Selecciona una Empresa</option>
-
-
-                          <?php
-
-                          $query_consultaempresa = $pdo->prepare("SELECT * FROM empresa WHERE Id_Estado='1'");
-                          $query_consultaempresa->execute();
-                          $empresanueva = $query_consultaempresa->fetchAll(PDO::FETCH_ASSOC);
-
-
-                          foreach ($empresanueva as $empresanueva) {
-                            $id_empresa = $empresanueva['Id_Empresa'];
-                            $nombre = $empresanueva['Nombre'];
-
-                          ?>
-
-
-                            <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
-                          <?php
-
-                          }
-                          ?>
-
-                        </select>
-
-
-                      </div>
-
-
-                    </div>
+                    
                     <div class="form-group">
                       <label for="">Identificacion</label>
-
-                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_usuarionuevo">
-                        <i class="glyphicon glyphicon-plus">+</i>
-                      </button>
-                      <select name="Identificacion" id="" class="form-control">
-                        <option value="">Identificacion</option>
-
-
-                        <?php
-
-                        $query_consultaid = $pdo->prepare("SELECT * FROM usuario WHERE Id_Estado='1'");
-                        $query_consultaid->execute();
-                        $idusuarionuevo = $query_consultaid->fetchAll(PDO::FETCH_ASSOC);
-
-
-                        foreach ($idusuarionuevo as $idusuarionuevo) {
-                          $id_usuario = $idusuarionuevo['Id_Usuario'];
-                          $nombre = $idusuarionuevo['Nombre'];
-                          $apellido = $idusuarionuevo['Apellido'];
-                          $pasword = $idusuarionuevo['Password'];
-                          $identificacion = $idusuarionuevo['Identificacion'];
-                          $cargo = $idusuarionuevo['Cargo'];
-                          $empresa = $idusuarionuevo['Empresa'];
-                          $estacion = $idusuarionuevo['Estacion'];
-
-                        ?>
-
-
-                          <option value="<?php echo $identificacion; ?>"><?php echo $identificacion; ?></option>
-                        <?php
-
-                        }
-                        ?>
-
-                      </select>
-
-
+                      <input type="text" class="form-control" name="Identificacion">
                     </div>
-
-
+      
                     <div class="form-group">
                       <label>Nombre</label>
-                      <input type="tex" class="form-control" name="Nombre">
-
-
+                      <input type="text" class="form-control" name="Nombre">
                     </div>
-
-
 
                     <div class="form-group">
                       <label>Apellido</label>
-                      <input type="tex" class="form-control" name="Apellido">
+                      <input type="text" class="form-control" name="Apellido">
                     </div>
 
-                    <!--inicia en este  campo del formulario de asistencia se configura un modal para agregar cargos-->
-
-
-
-                    <!--finaliza en este  campo del formulario de asistencia y se  configura un modal para agregar cargos-->
-
-
-
-
-
-
-
                     <div class="form-group">
-                      <label>Observaciones</label>
-                      <input type="tex" class="form-control" name="Observaciones">
+                      <label>Huella</label>
+                      <input type="text" class="form-control" name="Huella">
                     </div>
 
                   </div>
@@ -407,7 +288,7 @@ if (isset($_SESSION['u_usuario'])) {
                         ?>
 
 
-                          <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
+                          <option value="<?php echo $id_estacion; ?>"><?php echo $nombre; ?></option>
                         <?php
 
                         }
@@ -417,72 +298,84 @@ if (isset($_SESSION['u_usuario'])) {
                     </div>
 
                     <!--inicia en este  campo del formulario de asistencia se configura un modal para agregar Estaciones-->
+<div class="form-group">
+                      <label for="">Cargo</label>
+                      <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_cargo">
+                        <i class="glyphicon glyphicon-plus">+</i>
+                      </button>
+                      <select name="cargo" id="" class="form-control">
+                        <option value="">Selecciona un cargo</option>
 
 
-                    <div class="form-group">
-                      <label>Fecha_hora_entrada</label>
-                      <input type="date" class="form-control" name="Fecha_hora_entrada">
+                        <?php
+
+                        $query_consultacargo = $pdo->prepare("SELECT * FROM cargo WHERE Id_Estado='1'");
+                        $query_consultacargo->execute();
+                        $cargos = $query_consultacargo->fetchAll(PDO::FETCH_ASSOC);
+
+
+                        foreach ($cargos as $cargos) {
+                          $id_cargo = $cargos['Id_Cargo'];
+                          $nombre = $cargos['Nombre'];
+
+                        ?>
+
+
+                          <option value="<?php echo $id_cargo; ?>"><?php echo $nombre; ?></option>
+                        <?php
+
+                        }
+                        ?>
+
+                      </select>
+
+                      <div class="form-group">
+                        <label for="">Empresa</label>
+                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_empresa">
+                          <i class="glyphicon glyphicon-plus">+</i>
+                        </button>
+                        <select name="empresa" id="" class="form-control">
+                          <option value="">Selecciona una Empresa</option>
+
+
+                          <?php
+
+                          $query_consultaempresa = $pdo->prepare("SELECT * FROM empresa WHERE Id_Estado='1'");
+                          $query_consultaempresa->execute();
+                          $empresanueva = $query_consultaempresa->fetchAll(PDO::FETCH_ASSOC);
+
+
+                          foreach ($empresanueva as $empresanueva) {
+                            $id_empresa = $empresanueva['Id_Empresa'];
+                            $nombre = $empresanueva['Nombre'];
+
+                          ?>
+
+
+                            <option value="<?php echo $id_empresa; ?>"><?php echo $nombre; ?></option>
+                          <?php
+
+                          }
+                          ?>
+
+                        </select>
+
+
+                      </div>
+
+
                     </div>
 
-                    <!--<div class="form-group">
-      <label>Fecha_hora_salida</label>
-      <input type="date" class="form-control" name="Fecha_hora_salida">
-    </div>-->
-
-                    <div class="form-group">
-                      <label>Dinero_Reportado</label>
-                      <input type="text" class="form-control" name="Dinero_Reportado">
-                    </div>
-
-
-                    <div class="form-group">
-                      <label style="vertical-align: middle;">Firma</label>
-                      <canvas id="canvas"></canvas>
-                      <input type="hidden" name="firma" id="firma">
-
-                    </div>
+                    
 
                     <div class="row">
                       <div class="col-md-12">
-
-                        <input type="Submit" class="btn btn-success" value="Regsitrar Personal">
+                        <input type="Submit" class="btn btn-success" value="Regsitrar empleado">
                         <a href="" class="btn btn-warning">Cancelar</a>
-
-                        <button type="button" class="btn btn-default " id="limpiar">Limpiar firma</button>
                       </div>
                     </div>
 
               </form>
-
-              <script>
-                $(document).ready(function() {
-                  var canvas = document.getElementById('canvas');
-                  var signaturePad = new SignaturePad(canvas);
-
-                  // Dibuja la línea recta en el canvas
-                  var context = canvas.getContext('2d');
-                  context.beginPath();
-                  context.moveTo(0, canvas.height / 2);
-                  context.lineTo(canvas.width, canvas.height / 2);
-                  context.strokeStyle = 'grey';
-                  context.lineWidth = 2;
-                  context.stroke();
-
-                  // Captura la firma del usuario al enviar el formulario
-                  $('form').submit(function() {
-                    var firma = signaturePad.toDataURL();
-                    $('#firma').val(firma);
-
-                    // Limpia el contenido del canvas cuando se hace clic en el botón "Limpiar firma
-                  });
-                  $('#limpiar').click(function() {
-                    signaturePad.clear();
-                  });
-                });
-              </script>
-
-
-              <!--<a href='login/controller_cerrar_sesion.php'>Cerrar Sesion </a>-->
               <!--AQUI FINALIZA FORMULARIO DE ASISTENCIA-->
             </div>
           </div>
@@ -537,7 +430,7 @@ if (isset($_SESSION['u_usuario'])) {
 
 <div class="modal fade" id="myModal_cargo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-    <form action="controller_reg_cargo.php" method="get">
+    <form action="../cargo/controller_reg_cargo.php" method="get">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="Cancelar" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
@@ -568,18 +461,12 @@ if (isset($_SESSION['u_usuario'])) {
 <!-- FINALIZA MODAL PARA AGREGAR MAS CARGOS  ALA TABLA CARGO DESDE LA VISTA SUPERVISOR-->
 
 
-
-
-
-
-
-
 <!-- INICIA MODAL PARA AGREGAR MAS ESTACIONES  ALA TABLA  ESTACION DESDE LA VISTA SUPERVISOR-->
 
 
 <div class="modal fade" id="myModal_estacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-    <form action="controller_reg_estacion.php" method="get">
+    <form action="../estacion/controller_reg_estacion.php" method="get">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="Cancelar" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
@@ -610,151 +497,12 @@ if (isset($_SESSION['u_usuario'])) {
 <!-- FINALIZA MODAL PARA AGREGAR MAS ESTACIONES  ALA TABLA  ESTACION DESDE LA VISTA SUPERVISOR-->
 
 
-
-
-
-
-
-<!-- INICIA MODAL PARA AGREGAR MAS usuarios  ALA TABLA  usuarios  DESDE LA VISTA SUPERVISOR-->
-
-
-<div class="modal fade" id="myModal_usuarionuevo" tabindex="-1" role="dialog" aria-labelledby="myModal_usuarionuevo">
-  <div class="modal-dialog" role="document">
-    <form action="controller_reg_usuario_nuevo.php" method="get">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="Cancelar" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Usuario Nuevo</h4>
-        </div>
-        <div class="modal-body">
-
-          <div class="row">
-
-            <div class="col-md-12">
-              <label>Identificacion</label>
-              <input type="tex" class="form-control" name="Identificacion" required>
-
-
-
-              <label>Nombre </label>
-              <input type="tex" class="form-control" name="Nombre" required>
-
-              <label>Apellido </label>
-              <input type="tex" class="form-control" name="Apellido" required>
-
-              <label>Email </label>
-              <input type="tex" class="form-control" name="Email" required>
-
-
-              <label>Password </label>
-              <input type="Password" class="form-control" name="Password" required>
-
-
-              <label for="">Cargooooo</label>
-              <select name="Cargo" id="" class="form-control">
-                <option value="">Selecciona un cargo</option>
-
-
-                <?php
-
-                $query_consultacargo = $pdo->prepare("SELECT * FROM cargo WHERE Id_Estado='1'");
-                $query_consultacargo->execute();
-                $cargos = $query_consultacargo->fetchAll(PDO::FETCH_ASSOC);
-
-
-                foreach ($cargos as $cargos) {
-                  $id_Cargo = $cargos['Id_Cargo'];
-                  $nombre = $cargos['Nombre'];
-
-                ?>
-
-
-                  <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
-                <?php
-
-                }
-                ?>
-
-              </select>
-
-              <label for="">Empresaaaaaaaa</label>
-              <select name="Empresa" id="" class="form-control">
-                <option value="">Selecciona una Empresa</option>
-
-
-                <?php
-
-                $query_consultaempresa = $pdo->prepare("SELECT * FROM empresa WHERE Id_Estado='1'");
-                $query_consultaempresa->execute();
-                $empresanueva = $query_consultaempresa->fetchAll(PDO::FETCH_ASSOC);
-
-
-                foreach ($empresanueva as $empresanueva) {
-                  $id_empresa = $empresanueva['Id_Empresa'];
-                  $nombre = $empresanueva['Nombre'];
-
-                ?>
-
-
-                  <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
-                <?php
-
-                }
-                ?>
-
-              </select>
-
-
-              <label for="">Estacionnnnnnn</label>
-              <select name="Estacion" id="" class="form-control">
-                        <option value="">Selecciona una Estacion</option>
-
-
-                        <?php
-
-                        $query_consultaestacion = $pdo->prepare("SELECT * FROM estacion WHERE Id_Estado='1'");
-                        $query_consultaestacion->execute();
-                        $estaciones = $query_consultaestacion->fetchAll(PDO::FETCH_ASSOC);
-
-
-                        foreach ($estaciones as $estaciones) {
-                          $id_estacion = $estaciones['Id_Estacion'];
-                          $nombre = $estaciones['Nombre'];
-
-                        ?>
-
-
-                          <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
-                        <?php
-
-                        }
-                        ?>
-
-                      </select>
-
-            </div>
-
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-          <input type="submit" class="btn btn-primary" value="Guardar usuario">
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- FINALIZA MODAL PARA AGREGAR usuario nuevo ALA TABLA  usuario DESDE LA VISTA SUPERVISOR-->
-
-
 <!-- INICIA MODAL PARA AGREGAR MAS empresa  ALA TABLA  empresa  DESDE LA VISTA SUPERVISOR-->
 
 
 <div class="modal fade" id="myModal_empresa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-    <form action="controller_reg_empresa.php" method="get">
+    <form action="../empresa/controller_reg_empresa.php" method="get">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="Cancelar" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
@@ -784,8 +532,6 @@ if (isset($_SESSION['u_usuario'])) {
 
 <!-- FINALIZA MODAL PARA AGREGAR empresa nuevo ALA TABLA  empresa DESDE LA VISTA SUPERVISOR-->
 
-<!--<a href='login/controller_cerrar_sesion.php'>Cerrar Sesion </a>-->
-
 </div>
 </div>
 
@@ -795,31 +541,21 @@ if (isset($_SESSION['u_usuario'])) {
 </div>
 <!-- /.content-wrapper -->
 
-<?php include('layout/footer.php') ?>
-
-
-<!-- Control Sidebar menu superior  derecho aplicaciones-->
-
-<!--<aside class="control-sidebar control-sidebar-dark">-->
-<!-- Control sidebar content goes here -->
-<!--</aside>-->
-
-<!-- /.control-sidebar superior  derecho    aplicaciones-->
-
+<?php include('../layout/footer.php') ?>
 
 </div>
 <!-- ./wrapper -->
 <!-- jQuery -->
-<script src="libreria/recursos/plugins/jquery/jquery.min.js"></script>
+<script src="../libreria/recursos/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="libreria/recursos/dist/js/adminlte.min.js"></script>
+<script src="../libreria/recursos/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="libreria/recursos/dist/js/demo.js"></script>
+<script src="../libreria/recursos/dist/js/demo.js"></script>
 </body>
 
 </html>
 
 
-<!--FIN PLANTILLA INDEX DE USUARIO-->
+<!--FIN PLANTILLA INDEX DE EMPLEADO-->

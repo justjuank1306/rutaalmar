@@ -61,7 +61,9 @@ $sentencia->bindParam('Id_Estacion',$estacion);
 //$sentencia->bindParam('Id_Estado',$estado);
 //$sentencia->bindParam('Fecha_Creacion',$fecha_creacion);
 
-
+print_r ($cargo);
+print_r ($empresa);
+print_r ($estacion);
 
 if ($sentencia->execute()){
     //echo "<script>alert('Usuario Registrado Correctamente');</script>";

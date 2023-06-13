@@ -1,6 +1,6 @@
 <?php 
 // aqui inicia llamado ala base datos//
-include('app/config/config.php');
+include('../app/config/config.php');
 date_default_timezone_set("America/Bogota");
 
 // aqui finaliza el llamado de la base datos
@@ -67,7 +67,7 @@ if (isset($_SESSION['u_usuario'])) {
   <!-- finaliza codigo capturamos elinciiao de sesion de un usuario-->
 
   <!--Aqui Inicia en encabezado -->
-  <?php include('layout/menu.php'); ?>
+  <?php include('../layout/menu.php'); ?>
   <!--Aqui finaliza el encabezado-->
 
 
@@ -135,7 +135,7 @@ if (isset($_SESSION['u_usuario'])) {
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <!-- User image aqui vemos -->
               <li class="user-header bg-primary">
-                <img src="libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
+                <img src="../libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
 
                 <p>
                   <span class="d-none d-md-inline"><?php echo $Nombre . "-" . $Apellido ?></span>
@@ -149,7 +149,7 @@ if (isset($_SESSION['u_usuario'])) {
           <!-- Menu Footer-->
           <li class="user-footer">
             <!--<a href="#" class="btn btn-default btn-flat">Perfil</a>-->
-            <a href="login/controller_cerrar_sesion.php" class="btn btn-default btn-flat">Cerrar Sesion </a>
+            <a href="../login/controller_cerrar_sesion.php" class="btn btn-default btn-flat">Cerrar Sesion </a>
           </li>
         </ul>
         </li>
@@ -177,7 +177,7 @@ if (isset($_SESSION['u_usuario'])) {
       <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="../../index3.html" class="brand-link">
-          <img src="libreria/recursos/dist/img/loglogruta.png" alt="logoruta" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <img src="../libreria/recursos/dist/img/loglogruta.png" alt="logoruta" class="brand-image img-circle elevation-3" style="opacity: .8">
           <span class="brand-text font-weight-light">Control Peajes</span>
         </a>
 
@@ -189,7 +189,7 @@ if (isset($_SESSION['u_usuario'])) {
           <!-- Sidebar user (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
+              <img src="../libreria/recursos/dist/img/loglogruta.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
               <a href="#" class="d-block"><?php echo $Nombre ?></a>
@@ -201,11 +201,11 @@ if (isset($_SESSION['u_usuario'])) {
 
 
           <!--Aqui sehace llamado del menu lateral -->
-          <?php include('vista_administrador.php'); ?>
+          <?php include('../vista_administrador.php'); ?>
           <!--Aqui finaliza el llamado de menu lateral-->
 
           <!--Aqui sehace llamado del menu lateral -->
-          <?php include('vista_supervisor.php'); ?>
+          <?php include('../vista_supervisor.php'); ?>
           <!--Aqui finaliza el llamado de menu lateral-->
 
 
@@ -224,17 +224,17 @@ if (isset($_SESSION['u_usuario'])) {
             <div class="container-fluid">
               <div class="row mb-4">
                 <div class="col-sm-12">
-                
-                  <h1>Libro de Caja Menor</h1>
+              
+                  <h1>Libro Fondo Recambio </h1>
 
-                  <div class="info-box mb-3 bg-info">
+                  <div class="info-box mb-3 bg-primary">
                      <span class="info-box-icon"><i class="far fa-comment"></i></span>
 
                       <div class="info-box-content">
                         <span class="info-box-text"style="font-size: 20px">Saldo Actual</span>
                         <span class="info-box-number">
                         <?php
-                        $query_consultasaldo = $pdo->prepare("select (SELECT Sum(Entrada) - Sum(Salida)) as Saldo from cajamenor  WHERE Id_Estado='1'");
+                        $query_consultasaldo = $pdo->prepare("select (SELECT Sum(Entrada) - Sum(Salida)) as Saldo from fondorecambio  WHERE Id_Estado='1'");
                         $query_consultasaldo->execute();
                         $saldos = $query_consultasaldo->fetchAll(PDO::FETCH_ASSOC);
 
@@ -262,7 +262,7 @@ if (isset($_SESSION['u_usuario'])) {
         <section class="content">
           <div class="panel panel-primary">
             <div class="panel-primary">listado Movimientos Caja Menor
-            <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_cajamenor">
+            <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal_fondorecambio">
                         <i class="glyphicon glyphicon-plus">+</i>
                       </button>
             </div>
@@ -277,27 +277,27 @@ if (isset($_SESSION['u_usuario'])) {
               <th>Responsable</th>
               <th>Fecha_Creacion</th>
               <?php
-              $query_cajamenors = $pdo->prepare("SELECT TbCajamenor.Id_CajaMenor,TbCajamenor.Fecha_Hora,TbCajamenor.Entrada,TbCajamenor.Salida,TbCajamenor.Saldo,TbCajamenor.Concepto,TbUsuario.Nombre,TbCajamenor.Fecha_Creacion,TbEstacion.Nombre
-              FROM cajamenor TbCajamenor 
-              JOIN firma TbFirma ON TbCajamenor.Id_Firma = TbFirma.Id_Firma 
+              $query_fondorecambios = $pdo->prepare("SELECT TbFondorecambio.Id_FondoRecambio,TbFondorecambio.Fecha_Hora,TbFondorecambio.Entrada,TbFondorecambio.Salida,TbFondorecambio.Saldo,TbFondorecambio.Concepto,TbUsuario.Nombre,TbFondorecambio.Fecha_Creacion,TbEstacion.Nombre
+              FROM fondorecambio TbFondorecambio 
+              JOIN firma TbFirma ON TbFondorecambio.Id_Firma = TbFirma.Id_Firma 
               JOIN usuario TbUsuario ON TbFirma.Id_Usuario = TbUsuario.Id_Usuario 
-              JOIN estacion TbEstacion on TbCajamenor.Id_Estacion=TbEstacion.Id_Estacion
-              WHERE TbCajamenor.Id_Estado <> 0");
-              $query_cajamenors->execute();
-              $cajamenors = $query_cajamenors->fetchAll(PDO::FETCH_ASSOC);
-              foreach ($cajamenors as $cajamenor) {
-                $Id_CajaMenor = $cajamenor['Id_CajaMenor'];
-                $Fecha_Hora = $cajamenor['Fecha_Hora'];
-                $Entrada = $cajamenor['Entrada'];
-                $Salida = $cajamenor['Salida'];
-                $Saldo = $cajamenor['Saldo'];
-                $Concepto = $cajamenor['Concepto'];
-                $Responsable = $cajamenor['Nombre'];
-                $Fecha_Creacion = $cajamenor['Fecha_Creacion'];
+              JOIN estacion TbEstacion on TbFondorecambio.Id_Estacion=TbEstacion.Id_Estacion
+              WHERE TbFondorecambio.Id_Estado <> 0");
+              $query_fondorecambios->execute();
+              $fondorecambios = $query_fondorecambios->fetchAll(PDO::FETCH_ASSOC);
+              foreach ($fondorecambios as $fondorecambio) {
+                $Id_FondoRecambio = $fondorecambio['Id_FondoRecambio'];
+                $Fecha_Hora = $fondorecambio['Fecha_Hora'];
+                $Entrada = $fondorecambio['Entrada'];
+                $Salida = $fondorecambio['Salida'];
+                $Saldo = $fondorecambio['Saldo'];
+                $Concepto = $fondorecambio['Concepto'];
+                $Responsable = $fondorecambio['Nombre'];
+                $Fecha_Creacion = $fondorecambio['Fecha_Creacion'];
                 ?>
                   <tr>
                   <td>
-                    <center><?php echo $Id_CajaMenor ?></center>
+                    <center><?php echo $Id_FondoRecambio ?></center>
                   </td>
                   <td><?php echo $Fecha_Hora ?></td>
                   <td><?php echo $Entrada ?></td>
@@ -327,13 +327,13 @@ if (isset($_SESSION['u_usuario'])) {
     </div>
     <!-- ./wrapper -->
     <!-- jQuery -->
-    <script src="libreria/recursos/plugins/jquery/jquery.min.js"></script>
+    <script src="../libreria/recursos/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="libreria/recursos/dist/js/adminlte.min.js"></script>
+    <script src="../libreria/recursos/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="libreria/recursos/dist/js/demo.js"></script>
+    <script src="../libreria/recursos/dist/js/demo.js"></script>
   </body>
 
   </html>
@@ -354,16 +354,16 @@ if (isset($_SESSION['u_usuario'])) {
 }
 
 ?>
-<!-- INICIA MODAL PARA AGREGAR ALA TABLA  cajamenor  DESDE LA VISTA SUPERVISOR-->
+<!-- INICIA MODAL PARA AGREGAR ALA TABLA  fondorecambio  DESDE LA VISTA SUPERVISOR-->
 
 
-<div class="modal fade" id="myModal_cajamenor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="myModal_fondorecambio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-    <form action="controller_reg_cajamenor.php" method="get">
+    <form action="controller_reg_fondorecambio.php" method="get">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="Cancelar" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Cajamenor</h4>
+          <h4 class="modal-title" id="myModalLabel">Fondorecambio</h4>
         </div>
         <div class="modal-body">
 
@@ -431,7 +431,7 @@ if (isset($_SESSION['u_usuario'])) {
 </div>
 <!-- /.content-wrapper -->
 
-<?php include('layout/footer.php') ?>
+<?php include('../layout/footer.php') ?>
 
 
 <!-- Control Sidebar menu superior  derecho aplicaciones-->
@@ -446,13 +446,13 @@ if (isset($_SESSION['u_usuario'])) {
 </div>
 <!-- ./wrapper -->
 <!-- jQuery -->
-<script src="libreria/recursos/plugins/jquery/jquery.min.js"></script>
+<script src="../libreria/recursos/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../libreria/recursos/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="libreria/recursos/dist/js/adminlte.min.js"></script>
+<script src="../libreria/recursos/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="libreria/recursos/dist/js/demo.js"></script>
+<script src="../libreria/recursos/dist/js/demo.js"></script>
 </body>
 
 </html>

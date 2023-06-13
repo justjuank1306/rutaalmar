@@ -1,5 +1,5 @@
 <?php 
-include('app/config/config.php');
+include('../app/config/config.php');
 
 $nombre = $_GET['Nombre'];
 $id_estacion = $_GET['Id_Estacion'];
@@ -22,7 +22,7 @@ $sentencia->bindParam('Id_Estacion',$id_estacion);
 
 if ($sentencia->execute()){
     //echo "<script>alert('insertando');</script>";
-    header('location:'.$url.'/Registro_Asistencia_Sup_Entrada.php');
+    header('location:'.$url.'/empleado/registro_empleado.php');
 } else {
     echo "<script>alert('Usuario no Registrado');</script>";
 }

@@ -1,5 +1,5 @@
 <?php 
-include('app/config/config.php');
+include('../app/config/config.php');
 
 $nombre = $_GET['Nombre'];
 
@@ -18,7 +18,7 @@ $sentencia->bindParam('Nombre',$nombre);
 
 if ($sentencia->execute()){
     //echo "<script>alert('insertando');</script>";
-    header('location:'.$url.'/registro_boleteria.php');
+    header('location:'.$url.'/boletria/registro_boleteria.php');
 } else {
     echo "<script>alert('Categoria no Registrada');</script>";
 }

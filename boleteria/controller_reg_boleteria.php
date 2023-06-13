@@ -1,5 +1,5 @@
 <?php 
-include('app/config/config.php');
+include('../app/config/config.php');
 
 $fecha_hora = $_GET['Fecha_Hora'];
 $categoria = $_GET['Categoria'];
@@ -40,7 +40,7 @@ $sentencia->bindParam('Observaciones',$observaciones);
 if ($sentencia->execute()){
 
   // echo "<script>alert('Feha_Hora');</script>";
-    header('location:'.$url.'/registro_boleteria.php');
+    header('location:'.$url.'/boleteria/registro_boleteria.php');
 } else {
     echo "<script>alert('Usuario no Registrado');</script>";
 }

@@ -1,5 +1,5 @@
 <?php 
-include('app/config/config.php');
+include('../app/config/config.php');
 
 $fecha_hora = $_GET['Fecha_Hora'];
 $entrada = $_GET['Entrada'];
@@ -16,7 +16,7 @@ $observaciones = $_GET['Observaciones'];
 date_default_timezone_set("America/Bogota");
 
 
-$sentencia = $pdo->prepare("INSERT INTO cajamenor (Fecha_Hora, Entrada,Salida,Saldo, Concepto, Id_Estacion, Id_Firma, Observaciones)
+$sentencia = $pdo->prepare("INSERT INTO fondorecambio (Fecha_Hora, Entrada,Salida,Saldo, Concepto, Id_Estacion, Id_Firma, Observaciones)
 values(:Fecha_Hora, :Entrada,:Salida,:Saldo,:Concepto, :Estacion, :Firma, :Observaciones)");
 
 
@@ -35,7 +35,7 @@ $sentencia->bindParam('Observaciones',$observaciones);
 if ($sentencia->execute()){
 
   // echo "<script>alert('Feha_Hora');</script>";
-    header('location:'.$url.'/registro_cajamenor.php');
+    header('location:'.$url.'/fondorecambio/registro_fondorecambio.php');
 } else {
     echo "<script>alert('Usuario no Registrado');</script>";
 }

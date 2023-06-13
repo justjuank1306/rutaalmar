@@ -305,7 +305,7 @@ if (isset($_SESSION['u_usuario'])) {
           ?>
 
 
-            <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
+            <option value="<?php echo $Id_Empresa; ?>"><?php echo $nombre; ?></option>
           <?php
 
           }
@@ -337,7 +337,7 @@ if (isset($_SESSION['u_usuario'])) {
         ?>
 
 
-          <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
+          <option value="<?php echo $id_estacion; ?>"><?php echo $nombre; ?></option>
         <?php
 
         }
@@ -376,7 +376,7 @@ if (isset($_SESSION['u_usuario'])) {
         ?>
 
 
-          <option value="<?php echo $nombre; ?>"><?php echo $nombre; ?></option>
+          <option value="<?php echo $id_Cargo; ?>"><?php echo $nombre; ?></option>
         <?php
 
         }

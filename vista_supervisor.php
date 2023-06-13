@@ -17,36 +17,43 @@
                                 </a>
 
                                 <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="registro_asistencia_sup_entrada.php" class="nav-link">
+									    <li class="nav-item">
+                                        <a href="asistencia/registro_asistencia.php" class="nav-link">
                                             <i class="far fa-user"></i>
-                                            <p>Asistencia Entrada</p>
+                                            <p>Registrar Asistencia</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="registro_asistencia_sup_salida.php" class="nav-link">
-                                            <i class="far fa-user"></i>
-                                            <p>Asistencia Salida</p>
-                                        </a>
+										 <li class="nav-item">
+                                            <a href="../empleado/registro_empleado.php" class="nav-link">
+                                                <i class="far fa-user"></i>
+                                                <p>Registrar Empleado</p>
+                                            </a>
+                                    </li>
+	                                <li class="nav-item">
+                                            <a href="../asistencia/listar_asistencia.php" class="nav-link">
+                                                <i class="far fa-user"></i>
+                                                <p>Libro Asistencia</p>
+                                            </a>
                                     </li>
                                     <li class="nav-item">
-                                            <a href="registro_cajamenor.php" class="nav-link">
+                                            <a href="../cajamenor/registro_cajamenor.php" class="nav-link">
                                                 <i class="far fa-user"></i>
                                                 <p>Libro Caja Menor</p>
                                             </a>
                                     </li>
                                     <li class="nav-item">
-                                            <a href="registro_fondorecambio.php" class="nav-link">
+                                            <a href="../fondorecambio/registro_fondorecambio.php" class="nav-link">
                                                 <i class="far fa-user"></i>
                                                 <p>Libro Fondo Recambio</p>
                                             </a>
                                     </li>
 									 <li class="nav-item">
-                                            <a href="registro_boleteria.php" class="nav-link">
+                                            <a href="../boleteria/registro_boleteria.php" class="nav-link">
                                                 <i class="far fa-user"></i>
                                                 <p>Libro Boleteria</p>
                                             </a>
                                     </li>
+									
                                     <li class="nav-item">
                                         <a href="../rutaalmar/principal.php" class="nav-link">
                                             <i class="far fa-user"></i>

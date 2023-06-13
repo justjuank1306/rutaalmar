@@ -1,5 +1,6 @@
 <?php
-
+//Zona horaria
+date_default_timezone_set('America/Bogota');
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
